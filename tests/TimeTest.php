@@ -1,6 +1,4 @@
 <?php
-require_once dirname(__DIR__).'/Time.php';
-
 class TimeTest extends PHPUnit_Framework_TestCase
 {
     public function test_before()
