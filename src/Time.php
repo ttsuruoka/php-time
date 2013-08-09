@@ -32,23 +32,37 @@ class Time
         return date('Y-m-d H:i:s', self::$time);
     }
 
-    // 現在時間が与えられた時間より前かどうか
+    /**
+     * 現在時間が与えられた時間より前かどうか
+     *
+     * 引数としてnull が与えられたときは、false を返します。
+     *
+     * @param $a unixtimeを表す整数、または日付として解釈可能な文字列
+     * @return boolean 現在時間が与えられた時間より前のとき true、それ以外のとき false
+     */
     public static function before($a)
     {
         if (is_null($a)) {
             return false;
         }
-        $a = is_int($a) ? $a : strtotime($a);
+        $a = is_int($a) ? $a : strtotime($a, self::$time);
         return self::$time < $a;
     }
 
-    // 現在時間が与えられた時間より後かどうか
+    /**
+     * 現在時間が与えられた時間より後かどうか
+     *
+     * 引数としてnull が与えられたときは、false を返します。
+     *
+     * @param $a unixtimeを表す整数、または日付として解釈可能な文字列
+     * @return boolean 現在時間が与えられた時間より後のとき true、それ以外のとき false
+     */
     public static function after($a)
     {
         if (is_null($a)) {
             return false;
         }
-        $a = is_int($a) ? $a : strtotime($a);
+        $a = is_int($a) ? $a : strtotime($a, self::$time);
         return self::$time > $a;
     }
 
@@ -57,6 +71,7 @@ class Time
      *
      * null が与えられたときは、false を返します。
      *
+     * @param $a unixtimeを表す整数、または日付として解釈可能な文字列
      * @return boolean 現在時間が与えられた時間以前のとき true、それ以外のとき false
      */
     public static function beforeEq($a)
@@ -64,11 +79,32 @@ class Time
         return is_null($a) ? false : !self::after($a);
     }
 
+    /**
+     * 現在時間が与えられた時間より以後かどうか
+     *
+     * 引数としてnull が与えられたときは、false を返します。
+     *
+     * @param $a unixtimeを表す整数、または日付として解釈可能な文字列
+     * @return boolean 現在時間が与えられた時間以後のとき true、それ以外のとき false
+     */
     public static function afterEq($a)
     {
         return is_null($a) ? false : !self::before($a);
     }
 
+    /**
+     * 現在時間が引数2つの時間の範囲内かどうか
+     *
+     * 現在時間が第1引数または第2引数と等しい場合は範囲内とみなしてtrueを返します。
+     *
+     * 第1引数が配列で第2引数がnullだった場合、
+     * 第1引数を(開始時間,終了時間)とみなします。
+     * それ以外の組み合わせ引数にnullが渡された場合はfalseを返します。
+     *
+     * @param $a unixtimeを表す整数、または日付として解釈可能な文字列
+     * @param $b unixtimeを表す整数、または日付として解釈可能な文字列
+     * @return boolean 現在時間が与えられた時間以後のとき true、それ以外のとき false
+     */
     public static function between($a, $b = null)
     {
         if (is_array($a) && is_null($b)) {
