@@ -1,10 +1,19 @@
 <?php
 class TimeTest extends PHPUnit_Framework_TestCase
 {
+    public function test_unix()
+    {
+        $time = strtotime('2011-11-01 15:00:00');
+        Time::set($time);
+
+        $this->assertEquals(Time::unix(), $time);
+    }
+
     public function test_before()
     {
         Time::set(strtotime('2011-11-01 15:00:00'));
 
+        $this->assertEquals(Time::before(null), false);
         $this->assertEquals('2011-11-01 15:00:00', Time::now());
         $this->assertTrue(Time::before('2011-11-01 16:00:00'));
         $this->assertTrue(Time::before('2011-11-01 15:00:01'));
@@ -16,6 +25,7 @@ class TimeTest extends PHPUnit_Framework_TestCase
     {
         Time::set(strtotime('2011-11-01 15:00:00'));
 
+        $this->assertEquals(Time::after(null), false);
         $this->assertEquals('2011-11-01 15:00:00', Time::now());
         $this->assertFalse(Time::after('2011-11-01 16:00:00'));
         $this->assertFalse(Time::after('2011-11-01 15:00:01'));
