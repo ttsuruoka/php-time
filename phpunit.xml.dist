@@ -9,6 +9,9 @@
          stopOnFailure="false"
          syntaxCheck="false"
          bootstrap="tests/bootstrap.php">
+  <testsuite name="Test Suite">
+    <directory>./tests</directory>
+  </testsuite>
   <php>
     <ini name="date.timezone" value="utc" />
   </php>
