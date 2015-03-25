@@ -7,7 +7,7 @@
  * @url     https://github.com/ttsuruoka/php-time
  */
 
-// 時間に関する定数
+// 時間に関する定数 (deprecated)
 define('TIME_MIN', 60);
 define('TIME_HOUR', 3600);
 define('TIME_DAY', 86400);
@@ -16,6 +16,11 @@ define('TIME_WEEK', 60 * 60 * 24 * 7);
 class Time
 {
     protected static $time = null;
+
+    const MIN = 60;
+    const HOUR = 3600;
+    const DAY = 86400;
+    const WEEK = 604800; // 60 * 60 * 24 * 7
 
     public static function set($time)
     {
